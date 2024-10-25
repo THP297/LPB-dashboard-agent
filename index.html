@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Monitoring Dashboard</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/violentModal.css">
+    <link rel="stylesheet" href="./libraries/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./libraries/fontawesome-free-6.6.0-web/css/all.min.css">
+
+    
+
+
+</head>
+<body>
+
+    <div class="dashboard-container container">
+
+        <div class="realtime-stats">
+            <div class="row stats-list">
+                <div class="col stat-item">
+                    <p class="indicators">Available: <span id="available-count">0</span></p>
+                </div>
+                <div class="col stat-item">
+                    <p class="indicators">No ACD: <span id="no-acd-count">0</span></p>
+                </div>
+                <div class="col stat-item">
+                    <p class="indicators">At lunch: <span id="at-lunch-count">0</span></p>
+                </div>
+                <div class="col stat-item">
+                    <p class="indicators">Callback: <span id="callback-count">0</span></p>
+                </div>
+                <div class="col stat-item">
+                    <p class="indicators">Campaign: <span id="campaign-count">0</span></p>
+                </div>
+                <div class="col stat-item">
+                    <p class="indicators">Outbound: <span id="outbound-count">0</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-container">
+            <button id="toggle-filters" class="toggle-btn"><i class="fas fa-filter" style="color: #f99e1f;"></i></button>
+            <form id="filter-form" class="filter-form">
+                <input type="text" id="filter-extension" placeholder="Bộ lọc Extension">
+                <input type="text" id="filter-name" placeholder="Bộ lọc Agent">
+                <input type="text" id="filter-group" placeholder="Filter by Nhóm">
+            </form>
+        </div>
+        
+        <!-- Violation Monitoring Section -->
+        <div class="table-container">
+            <table id="violation-table" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <!-- Parent header (centered text) -->
+                        <th colspan="4" class="border">Chi tiết TDV</th>
+                        <th colspan="9" class="border">Thông tin cuộc gọi</th>
+                    </tr>
+                    <tr>
+                        <!-- Subheaders (with background color) -->
+                        <th>Extension</th>
+                        <th>Name</th>
+                        <th>Nhóm</th>
+                        <th style="border-right: 1px solid #ccc;">Trạng thái</th>
+                        <!-- Subheaders for "Thông tin cuộc gọi" -->
+                        <th>ansCalls</th>
+                        <th>Inbound Calls</th>
+                        <th>Outbound Calls</th>
+                        <th>Inbound Talk</th>
+                        <th>OutboundTalk</th>
+                        <th>InboundRing</th>
+                        <th>OutboundRing</th>
+                        <th>TotalRing</th>
+                        <th>TotalTalk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be dynamically generated here -->
+                </tbody>
+            </table>
+        </div>
+
+
+        
+    
+        <!-- Agent Information Section -->
+        <!-- <div class="agent-info container">
+            <h2>Thông tin đại lý</h2>
+    
+            <div class="row agent-productivity">
+                <div class="col-md-6">
+                    <p><strong>Năng suất ca làm việc:</strong> <span id="shift-total"></span></p>
+                    <p><strong>Inbound:</strong> <span id="inbound-shift"></span></p>
+                    <p><strong>Chiến dịch:</strong> <span id="campaign-shift"></span></p>
+                    <p><strong>Callback:</strong> <span id="callback-shift"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Năng suất tháng:</strong> <span id="month-total"></span></p>
+                    <p><strong>Inbound:</strong> <span id="inbound-month"></span></p>
+                    <p><strong>Chiến dịch:</strong> <span id="campaign-month"></span></p>
+                    <p><strong>Callback:</strong> <span id="callback-month"></span></p>
+                </div>
+            </div>
+    
+            <div class="row">
+                <h3>Chế độ của đại lý</h3>
+                
+                <div class="col-md-12">
+                    <p><strong>Thông tin lỗi các chế độ:</strong></p>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item flex-fill">Available: <span id="available-mode-violation">0</span></li>
+                        <li class="list-group-item flex-fill">No ACD: <span id="no-acd-mode-violation">0</span></li>
+                        <li class="list-group-item flex-fill">At lunch: <span id="lunch-mode-violation">0</span></li>
+                        <li class="list-group-item flex-fill">Callback: <span id="callback-mode-violation">0</span></li>
+                        <li class="list-group-item flex-fill">Campaign: <span id="campaign-mode-violation">0</span></li>
+                        <li class="list-group-item flex-fill">Outbound: <span id="outbound-mode-violation">0</span></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-12 mt-3">
+                    <p><strong>Thời gian lũy kế realtime trong ngày:</strong></p>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item flex-fill">Available: <span id="available-mode-time">0 phút</span></li>
+                        <li class="list-group-item flex-fill">No ACD: <span id="no-acd-mode-time">0 phút</span></li>
+                        <li class="list-group-item flex-fill">At lunch: <span id="lunch-mode-time">0 phút</span></li>
+                        <li class="list-group-item flex-fill">Callback: <span id="callback-mode-time">0 phút</span></li>
+                        <li class="list-group-item flex-fill">Campaign: <span id="campaign-mode-time">0 phút</span></li>
+                        <li class="list-group-item flex-fill">Outbound: <span id="outbound-mode-time">0 phút</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    
+    <!-- Modal Structure for Detailed Violation Info -->
+    <div id="violationModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Chi tiết vi phạm của <span id="modal-agent-name"></span></h2>
+            <p><strong>Thời gian vi phạm:</strong></p>
+            <ul id="violation-times"></ul>
+            <p><strong>Tổng thời gian vi phạm trong ca:</strong> <span id="total-shift-violation-time"></span></p>
+            <p><strong>Số lần vi phạm lũy kế trong tháng:</strong> <span id="monthly-violation-count"></span></p>
+            <p><strong>Tổng thời gian vi phạm lũy kế trong tháng:</strong> <span id="total-month-violation-time"></span></p>
+        </div>
+    </div>
+    
+
+
+    
+
+
+
+    <script src="./libraries/stomp.js"></script>
+    <script src="./libraries/jquery.js"></script>
+    <script src="./libraries/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/indicatorMessage.js"></script>
+    <script src="./js/tableMessage.js"></script>
+</body>
+</html>

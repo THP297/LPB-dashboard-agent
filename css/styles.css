@@ -1,0 +1,222 @@
+.table-container {
+    width: 100%;
+    max-height: 600px; /* Set max height for scroll */
+    overflow-y: auto; /* Enable vertical scroll */
+    overflow-x: auto; /* Enable horizontal scroll for wide tables */
+}
+
+*{
+    font-size: 12px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    font-size: 12px ; /* Set default font size for data content */
+}
+
+.indicators{
+    font-weight: bold;
+}
+
+.dashboard-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.realtime-stats, .violation-monitoring, .agent-info {
+    margin-bottom: 20px;
+}
+
+/* Section Titles */
+h2, h3 {
+    color: #333;
+    font-size: 18px !important; /* Section title font size */
+    font-weight: bold; /* Section title bold */
+}
+
+/* Stats List */
+.stats-list {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Stat Items */
+.stat-item {
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+/* Paragraph inside Stat Items */
+.stat-item p {
+    font-size: 12px; /* Set the font size to 12px */
+    margin: 0; /* Remove default margin from p elements */
+}
+
+
+.stat-item span{
+    font-weight: none;
+}
+
+th.border {
+    border: 1px solid #ccc !important;
+}
+
+/* Violation Table */
+#violation-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#violation-table th, #violation-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 12px; /* Set default table font size to 12px */
+}
+
+/* thead Styling */
+#violation-table th {
+    font-size: 12px; /* Set thead font size to 13px */
+    font-weight: bold; /* Make thead text bold */
+}
+
+/* Button Styles */
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px; /* Button text size matches data content */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Modal container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Parent thead - Centering the text and adding background color */
+#violation-table th[colspan] {
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* Subheader thead - Adding background color */
+#violation-table th {
+    background-color: #f2f2f2;
+    text-align: left; /* Subheader text aligned to the left */
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+#violation-table, #violation-table th, #violation-table td, #violation-table tr {
+    border: none;
+    border-collapse: collapse; /* Ensures no spacing between cells */
+}
+
+/* Styling for the filter container */
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+    margin-bottom: 20px;
+}
+
+/* Button styling */
+.toggle-btn {
+    background-color: #46341D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.toggle-btn:hover {
+    background-color: #6D5B4F;
+}
+
+/* Filter input styling */
+.filter-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-form input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .filter-form, .filter-container {
+        flex-direction: column; /* Stacks the inputs and button in mobile view */
+        align-items: stretch;
+    }
+}
